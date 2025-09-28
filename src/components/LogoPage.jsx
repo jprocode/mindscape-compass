@@ -1,4 +1,5 @@
 import { useState } from "react";
+import React from "react";
 
 const availableTriggers = [
   { id: "Crowds", icon: "👥", label: "Avoid crowded areas" },
@@ -17,11 +18,24 @@ export default function LogoPage({ onNext }) {
   };
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-calmBlue font-sans px-4">
-      <h1 className="text-4xl font-bold text-textDark mb-6">🧭 Mindscape Compass</h1>
-      <p className="text-lg text-textDark mb-6">Select what you’d like to avoid on campus:</p>
+    <div className="min-h-screen flex flex-col items-center justify-center bg-calmBlue font-sans px-6">
+      {/* Logo */}
+      <img
+        src="/logo.png"
+        alt="Mindscape Compass Logo"
+        className="w-24 h-24 mb-4"
+      />
 
-      <div className="grid gap-4 w-full max-w-md">
+      {/* Title */}
+      <h1 className="text-3xl font-bold text-textDark mb-2">
+        Mindscape Compass
+      </h1>
+      <p className="text-lg text-gray-700 mb-8 text-center">
+        Select what you’d like to avoid on campus:
+      </p>
+
+      {/* Triggers */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-md mb-8">
         {availableTriggers.map((t) => (
           <label
             key={t.id}
@@ -39,9 +53,10 @@ export default function LogoPage({ onNext }) {
         ))}
       </div>
 
+      {/* Button */}
       <button
         onClick={() => onNext(prefs)}
-        className="mt-8 px-6 py-3 bg-calmGreen hover:bg-green-500 text-textDark text-lg rounded-lg shadow-lg"
+        className="px-6 py-3 bg-calmGreen hover:bg-green-500 text-white text-lg rounded-lg shadow-lg transition"
       >
         Continue
       </button>

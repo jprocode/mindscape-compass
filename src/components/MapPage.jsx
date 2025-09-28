@@ -2,7 +2,6 @@
 // Collaborative file:
 // - Core map / search / preview / active navigation UI: Coder B
 // - Mood-aware route recommendation & trigger-aware route selection: You
-
 import React, { useEffect, useRef, useState } from "react";
 
 const GOOGLE_MAPS_API_KEY = "AIzaSyBWUFnp4i65FlRbB2Kx_OqEzcdkMgKeiBA";
