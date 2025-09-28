@@ -1,30 +1,65 @@
 import { useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  useNavigate,
+} from "react-router-dom";
 import LogoPage from "./components/LogoPage";
 import ChoicePage from "./components/ChoicePage";
 import MindscapePage from "./components/MindscapePage";
 import MapPage from "./components/MapPage";
 
-function App() {
-  const [page, setPage] = useState("logo"); // logo -> choice -> mindscape/na
-  const [triggers, setTriggers] = useState([]); // user-selected triggers
-  const [mood, setMood] = useState(null); // "happy" | "neutral" | "stressed"
+function AppRoutes({ mood, setMood, triggers, setTriggers }) {
+  const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-100">
-      {page === "logo" && (
-        <LogoPage onNext={(prefs) => { setTriggers(prefs); setPage("choice"); }} />
-      )}
-      {page === "choice" && (
-        <ChoicePage
-          onGoNav={() => setPage("nav")}
-          onGoMindscape={() => setPage("mindscape")}
-        />
-      )}
-      {page === "mindscape" && (
-        <MindscapePage setMood={setMood} onNext={() => setPage("nav")} />
-      )}
-      {page === "nav" && <MapPage triggers={triggers} mood={mood} />}
-    </div>
+    <Routes>
+      <Route
+        path="/"
+        element={
+          <LogoPage
+            onNext={(prefs) => {
+              setTriggers(prefs);
+              navigate("/choice");
+            }}
+          />
+        }
+      />
+      <Route
+        path="/choice"
+        element={
+          <ChoicePage
+            onGoNav={() => navigate("/nav")}
+            onGoMindscape={() => navigate("/mindscape")}
+          />
+        }
+      />
+      <Route
+        path="/mindscape"
+        element={<MindscapePage setMood={setMood} onNext={() => navigate("/nav")} />}
+      />
+      <Route
+        path="/nav"
+        element={<MapPage triggers={triggers} mood={mood} />}
+      />
+    </Routes>
+  );
+}
+
+function App() {
+  const [triggers, setTriggers] = useState([]);
+  const [mood, setMood] = useState(null);
+
+  return (
+    <Router>
+      <AppRoutes
+        mood={mood}
+        setMood={setMood}
+        triggers={triggers}
+        setTriggers={setTriggers}
+      />
+    </Router>
   );
 }
 
