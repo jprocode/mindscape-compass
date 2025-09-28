@@ -9,20 +9,12 @@ export default function MapPage({ triggers, mood }) {
       attribution: "&copy; OpenStreetMap contributors",
     }).addTo(map);
 
-    // Example routes
-    const fastest = [
-      [39.981, -75.155],
-      [39.982, -75.156],
-    ];
-    const comfort = [
-      [39.981, -75.155],
-      [39.9815, -75.154],
-    ];
+    const fastest = [[39.981, -75.155], [39.982, -75.156]];
+    const comfort = [[39.981, -75.155], [39.9815, -75.154]];
 
     const fastestLine = L.polyline(fastest, { color: "red" }).addTo(map);
     const comfortLine = L.polyline(comfort, { color: "blue" }).addTo(map);
 
-    // Highlight based on mood/triggers
     if (mood === "stressed" || triggers.includes("Crowds")) {
       comfortLine.setStyle({ weight: 6 });
     } else {
@@ -33,10 +25,10 @@ export default function MapPage({ triggers, mood }) {
   }, [triggers, mood]);
 
   return (
-    <div className="p-6 text-center">
-      <h2 className="text-2xl font-bold mb-4">🗺️ Campus Navigation</h2>
-      <div id="map" className="h-[500px] w-full border rounded-lg"></div>
-      <div className="mt-4">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-calmGray font-sans px-4">
+      <h2 className="text-3xl font-bold text-textDark mb-4">🗺️ Campus Navigation</h2>
+      <div id="map" className="h-[500px] w-full max-w-3xl border rounded-lg shadow-md"></div>
+      <div className="mt-4 text-lg text-textDark">
         {mood === "stressed" ? (
           <p>⚡ You seem stressed. Comfort route is recommended.</p>
         ) : (
